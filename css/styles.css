@@ -1,0 +1,435 @@
+/* -------------------------------------- 
+Table of contents 
+1. elements
+2. nav and banner uses flex
+3. home page grid 
+4. code pages with section wrapper
+5. footer
+6. media queries
+7. color palattes
+https://yoksel.github.io/flex-cheatsheet/#section-flex-grow
+-------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto+Slab|Roboto:300,400,500,700, 900');
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* elements */
+img {
+    max-width: 100%;
+    border: 1px solid #000000;
+    padding: 10px;
+    margin: 10px;
+}
+
+body {
+    background-color: #f6f7f8;
+    font-family: 'Roboto', sans-serif;
+}
+
+div {
+    display: block;
+}
+
+
+h1 {
+    border: 5px solid #000000;
+    font-family: lato;
+    font-size: 72px;
+}
+
+.container {
+    width: 95%;
+    margin: 0 auto;
+}
+
+/*nav and banner*/
+.bannerimg {
+    width: 100%;
+    height: 10vw;
+    margin: .5rem auto;
+    padding: 0;
+    border: 5px solid black;
+    object-fit: cover;
+}
+
+#main-nav a {
+    color: #f6f7f8;
+    /* background: #230a59; */
+    background: #F23030;
+    height: 64px;
+
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    transition: background 0.4s;
+    /* font-family: "Raleway", sans-serif; */
+    font-family: 'Roboto', sans-serif;
+
+    font-size: 22px;
+    border: 3px solid #000000;
+}
+
+#main-nav a:hover {
+    /* background: #3e38f2; */
+    /* background: #cc99cd; */
+    background: black;
+}
+
+#main-nav ul {
+    list-style: none;
+    display: flex;
+}
+
+#main-nav li {
+    width: 100%;
+    text-align: center;
+    position: relative;
+}
+
+#main-nav li:hover .submenu>li {
+    display: block;
+    flex-direction: column;
+    top: 0px;
+}
+
+.submenu li {
+    display: none;
+    position: absolute;
+    top: 0px;
+}
+
+.submenu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    width: 100%;
+}
+
+.submenu li {
+    position: relative;
+}
+
+.submenu li:hover .submenu-2 li {
+    display: block;
+}
+
+.submenu-2 li {
+    display: none;
+}
+
+.submenu-2 {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0px;
+    left: 95%;
+    width: 250px;
+}
+
+.arrow {
+    margin-left: 8px;
+    color: #eee;
+    font-size: 20px;
+}
+
+.header {
+    background-color: var(--white);
+    text-align: center;
+}
+
+.header__image {
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+}
+
+/* home page grid */
+.image-grid {
+    --gap: 1em;
+    --num-cols: 5;
+    --row-height: 225px;
+    box-sizing: border-box;
+    padding: var(--gap), auto;
+    display: grid;
+
+    grid-template-columns: repeat(var(--num-cols), 1fr);
+    grid-auto-rows: var(--row-height);
+    gap: var(--gap);
+    background-color: gray;
+    margin: .5rem auto;
+    padding-bottom: 1.3rem;
+    padding-top: 0;
+    padding-left: 0;
+    padding-right: 1.3rem;
+
+    border: 3px solid black;
+}
+
+.image-grid img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.image-grid img:hover:nth-child(1) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(2) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(3) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(4) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(5) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(6) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(7) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(8) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(9) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(10) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(11) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+.image-grid img:hover:nth-child(12) {
+    transform: scale(1.1);
+    transition: all 0.3s ease-out;
+}
+
+main {
+    border-radius: dashed;
+    /* border: 5px solid red; */
+}
+
+/* code pages- section wrapper*/
+.wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: minmax(100px, auto);
+    grid-gap: 1em;
+    /* max-width: 1280px; */
+    /* width: 100%; */
+    margin: .5rem auto;
+    /* margin-left: 0; */
+}
+
+.product {
+    grid-column: 1 / span 1;
+    /* grid-row: 1 / span 2; */
+    border: 2px solid black;
+    /* overflow: scroll; */
+    color: white;
+    background-color: black;
+    justify-self: center;
+    border-left: 22px solid black;
+    border-top: 22px solid black;
+    border-right: 22px solid black;
+    border-bottom: 15px solid black;
+}
+
+.reflection {
+    grid-column: 1 / span 1;
+    border: 2px solid #230a59;
+    padding: .5em;
+}
+
+.code {
+    grid-row: 1 / span 2;
+    grid-column: 2/5;
+    border: 2px solid black;
+    background-color: black;
+}
+
+canvas {
+    display: block;
+    width: 100%;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    /* border-bottom: 2px solid red; */
+}
+
+#gamesone {
+    width: 400px;
+    /* height: 400px; */
+    /* border: 10px solid red; */
+}
+
+#gamestwo {
+    width: 400px;
+    /* height: 400px; */
+}
+
+#trigone {
+    width: 400px;
+    /* height: 400px; */
+}
+
+#trigtwo {
+    width: 400px;
+    /* height: 400px; */
+}
+
+#trigthree {
+    width: 400px;
+    /* height: 400px; */
+}
+
+/* footer */
+.footer__container {
+    border: .5rem solid black;
+    margin: .5rem auto;
+    width: 95%;
+}
+
+.footer__list {
+    /* padding-bottom: 10px; */
+    /* padding-right: 10px; */
+    /* padding-top: 10px; */
+    /* border: 2rem solid black; */
+    /* margin: 0; */
+    padding: 0;
+    margin: 1rem;
+    /* height: 3rem; */
+}
+
+.footer__elements {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    text-decoration: none;
+    list-style: none;
+    /* flex-direction: row; */
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-variant: small-caps;
+}
+
+.footer__elements>li {
+    border-left: .1rem solid black;
+    /* border-right: .5rem solid black; */
+    margin-left: 0;
+}
+
+/*anything under 1024px  https://www.youtube.com/watch?v=rnhoY5Cdmy0*/
+@media screen and (max-width: 1024px) {
+    .image-grid {
+        --num-cols: 2;
+        --row-height: 200px;
+    }
+
+    #main-nav ul a {
+        margin: 2px;
+        padding: 2px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        list-style: none;
+        font-family: Helvetica, Arial, sans-serif;
+        font-size: 14px;
+    }
+
+    .wrapper {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-gap: 1em;
+        margin: 1rem auto;
+    }
+
+    .code {
+        grid-row: 1 / span 1;
+        grid-column: 1/5;
+        border: 2px solid black;
+        background-color: black;
+    }
+
+    .footer__elements {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        text-decoration: none;
+        list-style: none;
+        /* flex-direction: row; */
+
+    }
+}
+
+
+@media screen and (width>=1024px) {
+    .image-grid {
+        --num-cols: 4;
+        --row-height: 200px;
+    }
+}
+
+/* range syntax */
+/* When the browser is between 800px - 1000px */
+@media (800px <=width <=1000px) {
+    .image-grid {
+        border: 15px solid purple;
+    }
+}
+
+
+
+/* Color Theme Swatches in Hex */
+.Miniature-Size-Landscape--season1--1-hex {
+    color: #b1bf49;
+}
+
+.Miniature-Size-Landscape--season1--2-hex {
+    color: #d99923;
+}
+
+.Miniature-Size-Landscape--season1--3-hex {
+    color: #d97b29;
+}
+
+.Miniature-Size-Landscape--season1--4-hex {
+    color: #8c3a27;
+}
+
+.Miniature-Size-Landscape--season1--5-hex {
+    color: #d9483b;
+}

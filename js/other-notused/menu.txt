@@ -1,0 +1,6 @@
+
+
+page menu
+
+page1:trig
+page2: games

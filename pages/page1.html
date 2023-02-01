@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
+  <!-- code highlighting -->
+  <script type="text/javascript" src="../js/srcFiles/prism.js"></script>
+  <link rel="stylesheet" href="../css/prism.css" type="text/css" />
+  <link rel="stylesheet" href="../css/styles.css" type="text/css" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <img src="../img/struggle.jpg" class="bannerimg" alt="This is the banner">
+
+      <nav id="main-nav">
+        <ul>
+          <li>
+            <a href="../index.html">Home</a>
+          </li>
+          <li>
+            <a href="#">Projects
+              <span class="arrow">&#x25BC;</span>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="page1.html">Circles</a>
+              </li>
+              <li>
+                <a href="page2.html">Games</a>
+              </li>
+              <li>
+                <a href="page3.html">Graphing</a>
+              </li>
+              <li>
+                <a href="#">CS Classes
+                  <span class="arrow">&#x25B6;</span>
+                </a>
+                <ul class="submenu-2">
+                  <li>
+                    <a href="#">APCSP</a>
+                  </li>
+                  <li>
+                    <a href="#">APCSA</a>
+                  </li>
+                  <li>
+                    <a href="#">ACS</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#">Resources
+              <span class="arrow">&#x1f601;</span>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="https://p5js.org/reference/">P5 API</a>
+              </li>
+              <li>
+                <a
+                  href="https://www.youtube.com/watch?v=HerCR8bw_GE&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA">P5Videotutorials</a>
+              </li>
+              <li>
+                <a href="https://happycoding.io/">HappyCoding</a>
+              </li>
+              <li>
+                <a href="https://processing.org/">Processing</a>
+              </li>
+            </ul>
+          </li>
+
+
+
+          <li>
+            <a href="#">AboutMe
+              <span class="arrow">&#x1f601;</span>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="#">CompSci</a>
+              </li>
+              <li>
+                <a href="#">Algorithms</a>
+              </li>
+              <li>
+                <a href="https://observablehq.com/collection/@anjana/functional-javascript-first-steps">Functional</a>
+              </li>
+              <li>
+                <a href="https://computiful.org/foreword/">Math & Code</a>
+              </li>
+
+              <li>
+                <a href="#">DataViz
+                  <span class="arrow">&#x25B6;</span>
+                </a>
+                <ul class="submenu-2">
+                  <li>
+                    <a href="#">DataViz1</a>
+                  </li>
+                  <li>
+                    <a href="https://generativeartistry.com/">CreativeCode</a>
+                  </li>
+                  <li>
+                    <a href="https://geometrydaily.tumblr.com/">GeoDaily</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Syllabus</a>
+          </li>
+        </ul>
+      </nav>
+
+    </header>
+    <section class="wrapper">
+      <div class="code">
+        <pre>
+  <code class="language-javascript">
+    
+var lines = [];
+var circs = [];
+var lineAng = 0;
+var circAng = 0;
+var rad = 100;
+
+function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+  colorMode(HSB)
+  for (var i = 0; i < 26; i++) {
+    lines[i] = new Lines(lineAng, rad);
+    lineAng += 7.5;
+  }
+  for (var i = 0; i < 26; i++) {
+    circs[i] = new Circs(circAng);
+    circAng += 7.5;
+    var n = circs[i].myFromAngle(circAng, 200);
+    print("hey 2" + n.x);
+  }
+}
+
+function draw() {
+  background(12, 2, 70);
+  translate(width / 2, height / 2);
+
+  for (var i = 0; i < 26; i++) {
+    lines[i].display();
+  }
+  for (var i = 0; i < 26; i++) {
+    circs[i].display();
+    circs[i].move();
+  }
+}
+
+class Circs {
+  constructor(angle) {
+    this.angle = angle;
+    this.rad2 = 100;
+    this.fr = p5.Vector.fromAngle(radians(this.angle), this.rad2 * 2);
+    this.vx = this.fr.x;
+    this.vy = this.fr.y;
+    this.r=random(100, 360);
+    this.g=100;
+    this.b=100;
+    print("hey " + this.fr.x);
+  }
+  display() {
+    push();
+    fill(this.r, this.g, this.b);
+    this.x2 = map(sin(this.angle), -1, 1, -this.vx, this.vx);
+    this.y2 = map(sin(this.angle), -1, 1, -this.vy, this.vy);
+    ellipse(this.x2, this.y2, 20, 20);
+    pop();
+  }
+  move() {
+    this.angle -= 0.5;
+  }
+
+  myFromAngle(angle, distance) {
+    //Get SOH
+    var op = sin(angle) * distance;
+    //Get CAH
+    var ad = cos(angle) * distance;
+    //Add to old Vector
+    var newVect = createVector(ad, op);
+    return newVect;
+  }
+}
+
+class Lines {
+  constructor(angle, rad) {
+    this.angle = angle;
+    this.rad = rad;
+    this.fr = p5.Vector.fromAngle(radians(this.angle), this.rad * 2);
+    this.vx = this.fr.x;
+    this.vy = this.fr.y;
+  }
+  display() {
+    push();
+    noFill();
+    strokeWeight(3);
+    stroke(0);
+    line(0, 0, -this.vx, -this.vy);
+    stroke(0);
+    line(0, 0, this.vx, this.vy);
+    pop();
+  }
+}
+  </code>   
+    </pre>
+      </div>
+
+      <div class="product">
+        <div id="trigone">
+          <script type="module" src="../js/page1/main2.js"></script>
+        </div>
+      </div>
+      <div class="reflection">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
+
+      </div>
+    </section>
+    <section class="wrapper">
+      <div class="code">
+        <pre>
+  <code class="language-javascript">
+    var angle = 0;
+    var angle2 = 0;
+    var circles = [];
+    var circ;
+    var x = 0;
+    var y = 0;
+    var num = 0;
+    var c;
+    var bigCirclePoints = [];
+    var button;
+    function setup() {
+      createCanvas(400, 400);
+      button = createButton("reset");
+      button.mousePressed(playAgain);
+      playAgain();
+    }
+    
+    function draw() {
+      background(220);
+      translate(width / 2, height / 2);
+      makeCircles();
+      overlap();
+      for (var i = 0; i < bigCirclePoints.length; i++) {
+        bigCirclePoints[i].display();
+      }
+    }
+    function playAgain() {
+      angle = 0;
+      angle2 = 0;
+      circles = [];
+      circ;
+      x = 0;
+      y = 0;
+      num = 0;
+      c;
+      bigCirclePoints = [];
+      circ = new Circle(random(-100, 100), random(-100, 100), random(100));
+      circles.push(circ);
+      stroke(0);
+      strokeWeight(7);
+      for (var i = 0; i < 100; i++) {
+        x = cos(angle) * 150;
+        y = sin(angle) * 150;
+        angle += 0.5;
+        bigCirclePoints.push(new Pt(x, y));
+      }
+    }
+    function makeCircles() {
+      for (var i = 0; i < circles.length; i++) {
+        var r = random(2, 8);
+        x1 = cos(random(angle2)) * floor(random(200));
+        y1 = sin(random(angle2)) * floor(random(200));
+        angle2 += 0.1;
+        if (abs(x1 * x1) + abs(y1 * y1) < 22500) {
+          var newCircle = new Circle(x1, y1, r);
+          for (var j = 0; j < circles.length; j++) {
+            var other = circles[j];
+            var d = dist(newCircle.x, newCircle.y, other.x, other.y);
+            if (d < other.r + 2) {
+              newCircle = undefined;
+              break;
+            }
+          }
+          if (newCircle) {
+            circles.push(newCircle);
+          }
+        }
+      }
+    }
+    
+    function overlap() {
+      for (var i = 0; i < circles.length; i++) {
+        var c = circles[i];
+        c.display();
+        if (c.growing) {
+          c.grow();
+          // Does it overlap any previous circles?
+          for (var j = 0; j < circles.length; j++) {
+            var other = circles[j];
+            if (other != c) {
+              var d = dist(c.x, c.y, other.x, other.y);
+              if (d - 1 < c.r + other.r) {
+                c.growing = false;
+              }
+            }
+          }
+          // Is it stuck to an edge?
+          if (c.growing) {
+            c.growing = !c.edges();
+          }
+        }
+      }
+    }
+    
+    class Circle {
+      constructor(x, y, r) {
+        this.growing = true;
+        this.x = x;
+        this.y = y;
+        this.r = r;
+      }
+      display() {
+        noFill();
+        stroke(255, 0, 0);
+        strokeWeight(2);
+        ellipse(this.x, this.y, this.r, this.r);
+      }
+      edges() {
+        return (
+          this.r > width - this.x ||
+          this.r > this.x ||
+          this.r > height - this.y ||
+          this.r > this.y
+        );
+      }
+      grow() {
+        this.r += 0.5;
+      }
+    }
+    class Pt {
+      constructor() {
+        this.x = x;
+        this.y = y;
+      }
+      display() {
+        stroke(0);
+        strokeWeight(4);
+        point(this.x, this.y);
+      }
+    }
+    
+  </code>   
+    </pre>
+      </div>
+
+      <div class="product">
+        <div id="trigtwo">
+          <script type="module" src="../js/page1/main2.js"></script>
+        </div>
+      </div>
+      <div class="reflection">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
+
+      </div>
+    </section>
+    <section class="wrapper">
+      <div class="code">
+        <pre>
+    <code class="language-javascript">
+      var level;
+      var len;
+      
+      var buttonStart;
+      function setup() {
+        createCanvas(400, 400);
+      
+        len=width;
+        level=1;
+        buttonStart=createButton("reset");
+        buttonStart.mousePressed(resetGame);
+      }
+      
+      function draw() {
+        background(0);
+        fill(255, 0, 0);
+        stroke(0);
+        strokeWeight(10);
+        drawChair(len, len, level);
+      }
+      function resetGame(){
+        level=floor(random(1, 6));
+        console.log("hello")
+        console.log(level)
+      }
+      function drawChair(x, y, lev) {
+        if (lev==0) {
+          beginShape();
+          vertex(0, 0);
+          vertex(len, 0);
+          vertex(len, len/2);
+          vertex(len/2, len/2);
+          vertex(len/2, len);
+          vertex(0, len);
+          endShape(CLOSE);
+          
+        } else {
+          push();//red
+          translate( len, 0);
+          rotate( radians( 90 ) );
+          scale( 0.5 );
+          drawChair(x, y, lev-1);
+          pop();
+      
+          push();//green
+          translate( 0, 0);
+          rotate( radians( 0 ) );
+          scale( 0.5 );
+          // fill(0, 255, 0);
+          drawChair(x, y, lev-1);
+          pop();
+      
+          push();//blue
+          translate( 0, len);
+          rotate( radians( -90 ) );
+          scale( 0.5 );
+          //fill(0, 0, 255);
+          drawChair(x, y, lev-1);
+          pop();
+      
+          push();//white
+          translate( len/4, len/4);
+          rotate( radians( 0) );
+          scale( 0.5 );
+          ///fill(255);
+          drawChair(x, y, lev-1);
+          pop();
+        }
+      }
+   </code>
+
+   
+   Test the code here: <a href="https://editor.p5js.org/">p5Editor</a>
+
+      </pre>
+      </div>
+      <div class="product">
+        <div id="trigthree">
+          <script type="module" src="../js/page1/main2.js"></script>
+        </div>
+      </div>
+      <div class="reflection">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+        laborum.
+      </div>
+
+    </section>
+
+  </div>
+  <footer class="footer__container">
+    <div class="footer__list">
+      <ul class="footer__elements">
+        <li>Test-run the code here: <a href="https://editor.p5js.org/">p5Editor</a></li>
+        <li>2023</li>
+        <li> &copy Reinartz</li>
+      </ul>
+
+    </div>
+  </footer>
+</body>
+
+</html>

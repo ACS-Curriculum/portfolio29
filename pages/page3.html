@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Games</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/p5.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.5.0/addons/p5.sound.min.js"></script>
+  <!-- code highlighting -->
+  <script type="text/javascript" src="../js/srcFiles/prism.js"></script>
+  <link rel="stylesheet" href="../css/prism.css" type="text/css" />
+  <link rel="stylesheet" href="../css/styles.css" type="text/css" />
+</head>
+
+<body>
+  <div class="container">
+    <header class="header">
+      <img src="../img/struggle.jpg" class="bannerimg" alt="This is the banner">
+
+      <nav id="main-nav">
+        <ul>
+          <li>
+            <a href="../index.html">Home</a>
+          </li>
+          <li>
+            <a href="#">Projects
+              <span class="arrow">&#x25BC;</span>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="page1.html">Circles</a>
+              </li>
+              <li>
+                <a href="page2.html">Games</a>
+              </li>
+              <li>
+                <a href="page3.html">Graphing</a>
+              </li>
+              <li>
+                <a href="#">CS Classes
+                  <span class="arrow">&#x25B6;</span>
+                </a>
+                <ul class="submenu-2">
+                  <li>
+                    <a href="#">APCSP</a>
+                  </li>
+                  <li>
+                    <a href="#">APCSA</a>
+                  </li>
+                  <li>
+                    <a href="#">ACS</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li>
+            <a href="#">Resources
+              <span class="arrow">&#x1f601;</span>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="https://p5js.org/reference/">P5 API</a>
+              </li>
+              <li>
+                <a
+                  href="https://www.youtube.com/watch?v=HerCR8bw_GE&list=PLRqwX-V7Uu6Zy51Q-x9tMWIv9cueOFTFA">P5Videotutorials</a>
+              </li>
+              <li>
+                <a href="https://happycoding.io/">HappyCoding</a>
+              </li>
+              <li>
+                <a href="https://processing.org/">Processing</a>
+              </li>
+            </ul>
+          </li>
+
+
+
+          <li>
+            <a href="#">AboutMe
+              <span class="arrow">&#x1f601;</span>
+            </a>
+            <ul class="submenu">
+              <li>
+                <a href="#">CompSci</a>
+              </li>
+              <li>
+                <a href="#">Algorithms</a>
+              </li>
+              <li>
+                <a href="https://observablehq.com/collection/@anjana/functional-javascript-first-steps">Functional</a>
+              </li>
+              <li>
+                <a href="https://computiful.org/foreword/">Math & Code</a>
+              </li>
+
+              <li>
+                <a href="#">DataViz
+                  <span class="arrow">&#x25B6;</span>
+                </a>
+                <ul class="submenu-2">
+                  <li>
+                    <a href="#">DataViz1</a>
+                  </li>
+                  <li>
+                    <a href="https://generativeartistry.com/">CreativeCode</a>
+                  </li>
+                  <li>
+                    <a href="https://geometrydaily.tumblr.com/">GeoDaily</a>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">Syllabus</a>
+          </li>
+        </ul>
+      </nav>
+
+    </header>
+    <section class="wrapper">
+      <div class="code">
+        <pre>
+  <code class="language-javascript">
+    
+    var xscl;
+    var yscl;
+    var rangex;
+    var rangey;
+    var xmin;
+    var ymin;
+    var xmax;
+    var ymax;
+    var m;
+    var b;
+    var x;
+    var y;
+    var d;
+    var nums;
+    var lin;
+    var num;
+    var t;
+    var i;
+    var r, g, b;
+    var diam;
+    var offset;
+    var x5;
+    var y5;
+    var buttonStart;
+    var cols;
+    function setup() {
+      createCanvas(400, 400);
+      j = 0;
+      angleMode(DEGREES);
+      colorMode(HSB);
+      cols=[60, 80, 100, 120, 140, 160,180, 200, 220, 240, 260, 280, 300, 320, 340, 360];
+      diam = 150;
+      offset = 0.2 * diam;
+      x5 = width / 2;
+      y5 = height / 2;
+      resetIt();
+    
+      buttonStart = createButton("reset");
+      buttonStart.mousePressed(resetIt);
+    }
+    
+    function draw() {
+      background(0, 0, 70);
+      if (j < 1) {
+        smilyFace();
+      }
+      translate(width / 2, height / 2);
+      drawGrid();
+      drawDots();
+    }
+    
+    function drawDots() {
+      if (frameCount % 120 == 0) {
+        var x3 = lin[j].x3;
+        var y3 = lin[j].y3;
+        var x1 = random(nums);
+        var y1 = random(nums);
+        lin.push(new Lin(x3, y3, x1, y1));
+        j += 1;
+      }
+      for (var k = 0; k < lin.length - 1; k += 1) {
+        if (lin.length > 1) {
+          lin[k].display();
+        }
+      }
+    }
+    
+    function drawGrid() {
+      stroke(0);
+      strokeWeight(1);
+    
+      for (let i = xmin; i <= xmax + 1; i++) {
+        line(i * xscl, ymin * yscl, i * xscl, ymax * yscl);
+        text(i, i * xscl, 0);
+      }
+      for (let i = ymin; i <= ymax + 1; i++) {
+        line(xmin * xscl, i * yscl, xmax * xscl, i * yscl);
+        text(i, 0, i * yscl);
+      }
+      stroke(0);
+      line(0, ymin * yscl, 0, ymax * yscl);
+      line(xmin * xscl, 0, xmax * xscl, 0);
+    }
+    
+    class Lin {
+      constructor(x1, y1, x3, y3) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x1;
+        this.y2 = y1;
+        this.x3 = x3;
+        this.y3 = y3;
+        this.c = random(cols);
+        console.log("this "+this.c)
+      }
+      display() {
+        stroke(this.c, 100, 100);
+        strokeWeight(4);
+        noFill();
+        ellipse(this.x3, this.y3, 20, 20);
+        fill(this.c, 100, 100);
+    
+        ellipse(this.x1, this.y1, 10, 10);
+        ellipse(this.x2, this.y2, 5, 5);
+        this.x1 += (this.x3 - this.x1) * 0.1;
+        this.y1 += (this.y3 - this.y1) * 0.1;
+        line(this.x1, this.y1, this.x2, this.y2);
+        var d = dist(this.x1, this.y1, this.x3, this.y3);
+        if (d < 10) {
+          this.c = 360;
+        }
+      }
+    }
+    function resetIt() {
+      nums = [];
+      lin = [];
+      xmax = 10;
+      ymax = 10;
+      xmin = -10;
+      ymin = -10;
+      t = 0;
+      j = 0;
+      r = random(cols);
+      console.log(r)
+      g = 0;
+      b = 0;
+      num = 30;
+      x = xmin;
+      rangex = xmax - xmin;
+      rangey = ymax - ymin;
+    
+      xscl = width / rangex;
+      yscl = -height / rangey;
+      for (var i = -180; i < 180; i += 20) {
+        nums.push(i);
+      }
+    
+      var x1 = random(nums);
+      var y1 = random(nums);
+      var x2 = random(nums);
+      var y2 = random(nums);
+      lin.push(new Lin(x1, y1, x2, y2));
+    
+      console.log(lin[j].x3);
+    }
+    function smilyFace() {
+      fill(50, 100, 100);
+      ellipse(x5, y5, diam, diam);
+    
+      fill(r, g, b);
+      ellipse(x5 - offset, y5 - offset, diam / 7, diam / 7);
+      ellipse(x5 + offset, y5 - offset, diam / 7, diam / 7);
+      noFill();
+      arc(x5, y5, diam * 0.6, diam * 0.4, 0, 180);
+    }
+    function mousePressed() {
+      resetIt();
+    }
+    
+  </code>   
+    </pre>
+      </div>
+
+      <div class="product">
+        <div id="graph1">
+          <script type="module" src="../js/page3/graph1/main3.js"></script>
+        </div>
+      </div>
+      <div class="reflection">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+        id est
+        laborum.
+
+      </div>
+    </section>
+    <section class="wrapper">
+      <div class="code">
+        <pre>
+  <code class="language-javascript">
+    var newPts = [];
+    var newPtsx = [];
+    var newPtsy = [];
+    var xscl;
+    var yscl;
+    var rangex;
+    var rangey;
+    var xmin;
+    var ymin;
+    var xmax;
+    var ymax;
+    var m;
+    var b;
+    var x;
+    var y;
+    var t = 0;
+    var d;
+    var index;
+    var g = 0;
+    var nums = [];
+    var lin = [];
+    var buttonStart;
+    function setup() {
+      createCanvas(400, 400);
+      resetIt();
+      buttonStart = createButton("reset");
+      buttonStart.mousePressed(resetIt);
+    }
+    
+    function draw() {
+      background(230);
+      translate(width / 2, height / 2);
+      drawGrid();
+      drawDots();
+    }
+    
+    function drawDots() {
+      if (frameCount % 60 == 0) {
+        newPts.push(random(lin));
+      }
+      if (newPts.length > 1) {
+        for (var i = 0; i < newPts.length - 1; i += 1) {
+          newPts[i].display();
+        }
+      }
+    }
+    
+    function drawGrid() {
+      stroke(0);
+      strokeWeight(1);
+    
+      for (let i = xmin; i <= xmax + 1; i++) {
+        line(i * xscl, ymin * yscl, i * xscl, ymax * yscl);
+        text(i, i * xscl, 0);
+      }
+      for (let i = ymin; i <= ymax + 1; i++) {
+        line(xmin * xscl, i * yscl, xmax * xscl, i * yscl);
+        text(i, 0, i * yscl);
+      }
+      stroke(0);
+      line(0, ymin * yscl, 0, ymax * yscl);
+      line(xmin * xscl, 0, xmax * xscl, 0);
+    }
+    function resetIt() {
+      newPts = [];
+      newPtsx = [];
+      newPtsy = [];
+      xmax = 10;
+      ymax = 10;
+      xmin = -10;
+      ymin = -10;
+      x = xmin;
+      rangex = xmax - xmin;
+      rangey = ymax - ymin;
+      index = 0;
+      xscl = width / rangex;
+      yscl = -height / rangey;
+      for (var i = -180; i < 180; i += 20) {
+        nums.push(i);
+      }
+      for (var i = 0; i < 20; i++) {
+        var x0 = random(nums);
+        var y0 = random(nums);
+        var x = random(nums);
+        var y = random(nums);
+        lin.push(new Lin(x0, y0, x, y));
+      }
+    }
+    
+    class Lin {
+      constructor(x1, y1, x3, y3) {
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x1;
+        this.y2 = y1;
+        this.x3 = x3;
+        this.y3 = y3;
+      }
+      display() {
+        stroke(255, 0, 0);
+        strokeWeight(3);
+        this.x1 += (this.x3 - this.x1) * 0.06;
+        this.y1 += (this.y3 - this.y1) * 0.06;
+        line(this.x1, this.y1, this.x2, this.y2);
+      }
+    }
+    
+    
+  </code>   
+    </pre>
+      </div>
+
+      <div class="product">
+        <div id="graph2">
+          <script type="module" src="../js/page3/graph2/main3.js"></script>
+        </div>
+      </div>
+      <div class="reflection">
+
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+        id est
+        laborum.
+
+      </div>
+    </section>
+    <section class="wrapper">
+      <div class="code">
+        <pre>
+    <code class="language-javascript">
+      var x1;
+      var y1;
+      var x2;
+      var y2;
+      var pt;
+      var pts = [];
+      var newPts = [];
+      var newX = 0;
+      var newY = 0;
+      var m;
+      var b;
+      var numDots;
+      var rm;
+      var bm;
+      var on = false;
+      var fr = 2;
+      var r;
+      var g;
+      var b;
+      var x;
+      var y;
+      var newArr = [];
+      var keepPoints = [];
+      var sl = [];
+      function setup() {
+        createCanvas(400, 400);
+        colorMode(HSB);
+        r = 360;
+        g = 100;
+        b = 100;
+        resetIt();
+      }
+      
+      function draw() {
+        background(0, 0, 60);
+        translate(width / 2, height / 2);
+        var d = dist(x1, y1, x2, y2);
+        for (var i = 0; i <= d; i += 10) {
+          var nx = ler(x1, x2, i / d);
+          var ny = ler(y1, y2, i / d);
+          fill((255 * i) / d, 255, 255);
+          ellipse(nx, ny, 10, 10);
+        }
+        x1 = ler(x1, x2, 3 / d);
+        y1 = ler(y1, y2, 3 / d);
+        newPts.push(new P(x1, y1, r, g, b));
+        newArr.push(new P(x1, y1, r, g, b));
+        if (newPts.length > -1) {
+          for (var i = 0; i < newPts.length; i++) {
+            newPts[i].display();
+          }
+        }
+        if (newArr.length > -1) {
+          for (var i = 0; i < newArr.length; i++) {
+            newArr[i].display();
+          }
+        }
+        if (sl.length > 1) {
+          for (var i = 0; i < sl.length; i++) {
+            sl[i].display();
+          }
+        }
+        pt.display();
+        if (x1 > x2 - 5) {
+          if (frameCount % 120 == 0) {
+            resetIt();
+          }
+        }
+        strokeWeight(1);
+        stroke(0);
+        line(0, -350, 0, 350);
+        line(-350, 0, 350, 0);
+      
+        textSize(20);
+        text("slope: " + rm, -350, -350);
+        text("y intercept: " + bm, -350, -350);
+      }
+      function resetIt() {
+        r = random(10, 360);
+        g = random(95, 100);
+        b = random(95, 100);
+        x1 = floor(random(-150, 150));
+        y1 = floor(random(-150, 150));
+        x2 = floor(random(-150, 150));
+        y2 = floor(random(-150, 150));
+        sl.push(new ShowLines(x1, y1, x2, y2, rm, bm));
+        newPts = [];
+        pt = new Pt(x1, y1, x2, y2);
+        m = (y2 - y1) / (x2 - x1);
+        rm = Math.round(m * 100.0) / 100;
+        rm = rm * -1;
+        b = y1 - m * x1;
+        bm = Math.round(b * 100.0) / 100;
+      }
+      function ler(v0, v1, t) {
+        return (1 - t) * v0 + t * v1;
+      }
+      function ler2(x1, x2, y1, y2, t) {
+        var y = y1 + ((t - x1) * (y2 - y1)) / (x2 - x1);
+        return y;
+      }
+      class ShowLines {
+        constructor(x1, y1, x2, y2, sl, inter) {
+          this.x1 = x1;
+          this.y1 = y1;
+          this.x2 = x2;
+          this.y2 = y2;
+          this.sl = sl;
+          this.inter = inter;
+          this.midx = (x2 - x1) / 2;
+          this.midy = (y2 - y1) / 2;
+        }
+        display() {
+          fill(255);
+          noStroke();
+          textSize(18);
+        }
+      }
+      class P {
+        constructor(x, y, r, g, b) {
+          this.x = x;
+          this.y = y;
+          this.r = r;
+          this.b = b;
+          this.g = g;
+        }
+        display() {
+          stroke(this.r, this.g, this.b);
+          strokeWeight(6);
+          point(this.x, this.y);
+        }
+      }
+      class Pt {
+        constructor(x1, y1, x2, y2) {
+          this.x1 = x1;
+          this.y1 = y1;
+          this.x2 = x2;
+          this.y2 = y2;
+          this.pts = [];
+        }
+        display() {
+          fill(0, 0, 255);
+          //ellipse(this.x1, this.y1, 10, 10);
+          //ellipse(this.x2, this.y2, 10, 10);
+          strokeWeight(9);
+          point(this.x1, this.y1);
+          point(this.x2, this.y2);
+      
+          noStroke();
+          textSize(16);
+          text("x1: " + this.x1 + ",  y1: " + this.y1, this.x1 - 15, this.y1 - 10);
+          text("x2: " + this.x2 + ",  y2: " + this.y2, this.x2 - 15, this.y2 - 10);
+        }
+      }
+
+   </code>
+      </pre>
+      </div>
+      <div class="product">
+        <div id="graph3runner">
+          <script type="module" src="../js/page3/graph3/main.js"></script>
+        </div>
+      </div>
+      <div class="reflection">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+        dolore
+        magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+        commodo
+        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+        pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim
+        id est
+        laborum.
+      </div>
+    </section>
+
+  </div>
+  <footer class="footer__container">
+    <div class="footer__list">
+      <ul class="footer__elements">
+        <li>Test-run the code here: <a href="https://editor.p5js.org/">p5Editor</a></li>
+        <li>2023</li>
+        <li> &copy Reinartz</li>
+      </ul>
+    </div>
+  </footer>
+</body>
+
+</html>
